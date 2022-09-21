@@ -53,6 +53,7 @@ describe('MortgageCalculatorComponent', () => {
     expect(component.prePaymentPlan.valid).toBeTruthy();
 
     component.calculateMortgage();
-    // expect(component.numberOfPaymentsTerm).toHaveBeenCalled();
+    component.numberOfPaymentsTerm();
+    expect(component.numberOfPaymentsTerm).toHaveBeenCalled();
   });
 });
