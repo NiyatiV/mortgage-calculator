@@ -1,0 +1,206 @@
+<div class="container">
+    <p class="pt-3 border-top">This calculator determines your mortgage payment and provides you with a mortgage payment schedule. The calculator also shows how much money and how many years you can save by making prepayments.</p>
+    <p><strong>Note:</strong> As of July 9, 2012, the maximum amortization period for mortgages with less than a 20 percent down payment is <strong>25 years</strong>.</p>
+    <div class="row">
+        <!-- Payment Plan -->
+        <div class="col-lg-7  p-0">
+            <div class="card m-3">
+                <div class="card-header card-header-color">
+                    Payment Plan
+                </div>
+                <form [formGroup]="paymentPlan" novalidate>
+                    <div class="p-3">
+                        <div class="form-group row">
+                            <label class="sr-only" class="col-sm-5 col-form-label">Mortgage Amount <i class="bi bi-info-circle"></i></label>
+                            <div class=" mb-2 mr-sm-2 col-sm-7 d-flex">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">$</div>
+                                </div>
+                                <input type="number" class="form-control mb-2 mr-sm-2" placeholder="Mortgage Amount" formControlName="mortgageAmount" >
+                            </div>
+                            <div *ngIf="paymentPlan.controls['mortgageAmount'].errors?.['required']" class="invalid-input">Field is required</div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="sr-only" class="col-sm-5 col-form-label">Interest Rate</label>
+                            <div class=" mb-2 mr-sm-2 col-sm-4 d-flex">
+                                <input type="number" class="form-control mb-2 mr-sm-2" placeholder="Interest Rate" formControlName="interestRate" >
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">%</div>
+                                </div>
+                            </div>
+                            <div *ngIf="paymentPlan.controls['interestRate'].errors?.['required']" class="invalid-input">Field is required</div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="sr-only" class="col-sm-5 col-form-label">Amortization Period</label>
+                            <div class=" mb-2 mr-sm-2 col-sm-4 d-flex">
+                                <select class="custom-select form-control mb-2 mr-sm-2" formControlName="amortizationPeriod">
+                                    <option *ngFor="let period of amortizationPeriod" [ngValue]="period">{{period}}</option>
+                                </select>
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Years</div>
+                                </div>
+                            </div>
+                            <div *ngIf="paymentPlan.controls['amortizationPeriod'].errors?.['required']" class="invalid-input">Field is required</div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="sr-only" class="col-sm-5 col-form-label">Payment Frequency</label>
+                            <div class=" mb-2 mr-sm-2 col-sm-7 d-flex">
+                                <select class="custom-select form-control mb-2 mr-sm-2"  formControlName="paymentFrequency">
+                                    <option *ngFor="let period of paymentFrequency" [ngValue]="period.name">{{period.name}}</option>
+                                </select>
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Years</div>
+                                </div>
+                                <div *ngIf="paymentPlan.controls['paymentFrequency'].errors?.['required']" class="invalid-input">Field is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="sr-only" class="col-sm-5 col-form-label">Term</label>
+                            <div class=" mb-2 mr-sm-2 col-sm-4 d-flex">
+                                <select class="custom-select form-control mb-2 mr-sm-2" formControlName="loanTerm">
+                                    <option *ngFor="let period of loanTerm" [ngValue]="period">{{period}}</option>
+                                </select>
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Years</div>
+                                </div>
+                                <div *ngIf="paymentPlan.controls['loanTerm'].errors?.['required']" class="invalid-input">Field is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Prepayment Plan -->
+        <div class="col-lg-5 p-0">
+            <div class="card m-3">
+                <div class="card-header card-header-color">
+                    Prepayment Plan
+                </div>
+                <form [formGroup]="prePaymentPlan" novalidate>
+                    <div class="p-3">
+                        <div class="form-input">
+                            <div class="form-group row">
+                                <label class="sr-only" class="col-sm-5 col-form-label">Prepayment Amount</label>
+                                <div class=" mb-2 mr-sm-2 col-sm-7 d-flex">
+                                    <!-- <div class="input-group-prepend">
+                                        <div class="input-group-text">$</div>
+                                    </div> -->
+                                    <input type="number" class="form-control mb-2 mr-sm-2" placeholder="Prepayment Amount" formControlName="prePaymentAmount" >
+                                </div>
+                                <div *ngIf="prePaymentPlan.controls['prePaymentAmount'].errors?.['required']" class="invalid-input">Field is required</div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="sr-only" class="col-sm-5 col-form-label">Prepayment Frequency</label>
+                                <div class=" mb-2 mr-sm-2 col-sm-7 d-flex">
+                                    <select class="custom-select form-control mb-2 mr-sm-2"  formControlName="prePaymentFrequency">
+                                        <option *ngFor="let start of startWithPayment" [ngValue]="start">{{start}}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="prePaymentPlan.controls['prePaymentFrequency'].errors?.['required']" class="invalid-input">Field is required</div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="sr-only" class="col-sm-5 col-form-label">Start With Payment</label>
+                                <div class=" mb-2 mr-sm-2 col-sm-3 d-flex">
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Start With Payment" formControlName="startWithPayment" >
+                                </div>
+                                <div *ngIf="prePaymentPlan.controls['startWithPayment'].errors?.['required']" class="invalid-input">Field is required</div>
+                            </div>
+
+                            
+                            
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div> 
+    </div>
+
+    <!-- Calculate button -->
+    <div>
+        <button type="button" class="btn btn-primary" [disabled]="!prePaymentPlan.valid || !paymentPlan.valid" (click)="calculateMortgage()">Calculate</button>
+    </div>
+
+    <div class="pt-4">
+        <tabset #tabset customClass="customClass">
+          <tab heading="Calculation Summary" id="tab1" >
+            <!-- Summary table -->
+            <div>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Term</th>
+                            <th>Amortization Period</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Number of Payments</td>
+                            <td>{{paymentsTerm}}</td>
+                            <td>{{paymentsAmortization}}</td>
+                        </tr>
+                        <tr>
+                            <td>Mortgage Payment</td>
+                            <td>${{mortgageAmount}}</td>
+                            <td>${{mortgageAmount}}</td>
+                        </tr>
+                        <tr>
+                            <td>Prepayment</td>
+                            <td>${{prePaymentValue}}</td>
+                            <td>${{prePaymentValue}}</td>
+                        </tr>
+                        <tr>
+                            <td>Principal Payments</td>
+                            <td>${{paymentTermPrincipal}}</td>
+                            <td>${{paymentAmortizationPrincipal}}</td>
+                        </tr>
+                        <tr>
+                            <td>Interest Payments</td>
+                            <td>${{paymentTermInterest}}</td>
+                            <td>${{paymentAmortizationInterest}}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Cost</td>
+                            <td>${{costTermTotal}}</td>
+                            <td>${{costAmortizationTotal}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          </tab>
+          <tab heading="Mortgage Summary">
+            <div class="pt-3">
+                <p>
+                     Over the {{paymentPlan.controls['amortizationPeriod'].value}}-year amortization period, you will:
+                </p>
+                <ul>
+                    <li>
+                        have made <strong>{{paymentsAmortization}}</strong> {{paymentPlan.controls['paymentFrequency'].value}} payments of <strong>${{mortgageAmount}}</strong> .</li>
+                    <li>
+                        have paid <strong>${{paymentAmortizationPrincipal}}</strong> in principal, <strong>${{paymentAmortizationInterest}}</strong> in interest, for a total of <strong>${{costAmortizationTotal}}</strong>.</li>
+                </ul>
+            
+                <p>
+                     Over the {{paymentPlan.controls['loanTerm'].value}}-year term, you will:
+                </p>
+                <ul>
+                    <li>
+                        have made <strong>{{paymentsTerm}}</strong> {{paymentPlan.controls['paymentFrequency'].value}} payments of <strong>${{mortgageAmount}}</strong>.</li>
+                    <li>
+                        have paid <strong>${{paymentTermPrincipal}}</strong> in principal, <strong>${{paymentTermInterest}}</strong> in interest, for a total of <strong>${{costTermTotal}}</strong>.</li>
+                </ul>
+            </div>
+          </tab>
+          <tab heading="Payment Diagram" (selectTab)="calculateGraph()">
+            <app-payment-diagram *ngIf="paymentDiagramClick" [options]="options"></app-payment-diagram>
+            <app-payment-diagram *ngIf="!paymentDiagramClick" [options]="options"></app-payment-diagram>
+          </tab>
+        </tabset>
+    </div>
+</div>

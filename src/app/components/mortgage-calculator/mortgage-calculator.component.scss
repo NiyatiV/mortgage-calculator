@@ -1,0 +1,46 @@
+.card-header-color{
+    background-color: #006AC3;
+    color: white;
+    .nav-tab {
+        color:black !important;
+        
+        .nav-link{
+            color:black !important;
+    
+        }
+    }
+    
+}
+
+.border-top {
+    border-top: 1px solid #006ac3;
+}
+
+.nav-item a span{
+    color: black !important;
+}
+
+.btn-primary{
+    background-color: #cbcccd;
+    color: black;
+    border: 1px solid #c6bebe;
+}
+
+.customClass > a{
+    background-color:silver !important;
+    border-bottom: none !important;
+    outline: 0 !important; 
+    }
+
+
+.nav-tabs .nav-link.active {
+    background-color: #dcd6d6 !important;
+}
+
+.invalid-input{
+    display: flex;
+    flex-direction: row-reverse;
+    position: relative;
+    bottom: 10px;
+    color: #cc6666;
+}
